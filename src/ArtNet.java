@@ -21,12 +21,12 @@ public class ArtNet {
         try {
             socket = new DatagramSocket();
         } catch (Exception e) {
-            System.out.println("Exception in constructor: Socket Creation -> " + e);
+            System.out.println("Exception in constructor: " + e);
         }
     }
 
     /**
-     * Send a ArtDmx packet
+     * Send a ArtDmx packet on node=0, universe=0, subnet=0, net=0
      * @param dmxChannelData Dmx data array. ArraySize=512, ArrayType=byte, ArrayValue=(0-255)
      */
     public void sendArtDmxPacket(byte[] dmxChannelData){
@@ -104,7 +104,7 @@ public class ArtNet {
             DatagramPacket dgram = new DatagramPacket(byteToSend, byteToSend.length, InetAddress.getByName(socketIp), 6454);
             socket.send(dgram);
         } catch (Exception e) {
-            System.out.println("Exception at packet sending: Data Sending -> " + e);
+            System.out.println("Exception at packet sending: " + e);
         }
     }
 

@@ -14,7 +14,7 @@ public class ArtNetTester {
         while (true) {
             try {
                 //Create an ArtNet Object
-                ArtNet a = new ArtNet("255.255.255.255") ;
+                ArtNet a = new ArtNet("255.255.255.255");
                 //Data array
                 byte[] data = new byte[512];
                 //Dmx Values incremention for the data array (0-255)

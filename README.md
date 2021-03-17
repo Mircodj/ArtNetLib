@@ -1,14 +1,17 @@
-## Getting Started
+## Java ArtNet Dmx Sender
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+### Methods:
 
-## Folder Structure
+- `ArtNet(String socketIp)`: Constructor with the ip address of the socket.
+- `sendArtDmxPacket(byte[] dmxChannelData)`: Send a ArtDmx packet with the dmx data contained on a 512 elements byte array (Elements values from 0 to 255).
 
-The workspace contains two folders by default, where:
+### Code Example:
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+```
+ArtNet artnet = new ArtNet("xxx.xxx.xxx.xxx");
+...
+byte[] data = new byte[512];
+...
+artnet.sendArtDmxPacket(data);
+```
 
-## Dependency Management
-
-The `JAVA DEPENDENCIES` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-pack/blob/master/release-notes/v0.9.0.md#work-with-jar-files-directly).
