@@ -14,7 +14,7 @@ public class ArtNetTester {
         while (true) {
             try {
                 //Create an ArtNet Object
-                ArtNet a = new ArtNet("255.255.255.255");
+                ArtNetLib a = new ArtNetLib("255.255.255.255");
                 //Data array
                 byte[] data = new byte[512];
                 //Dmx Values incremention for the data array (0-255)
@@ -24,7 +24,7 @@ public class ArtNetTester {
                         data[i] = (byte)x; 
                     }
                     //Send the packet with the data
-                    a.sendArtDmxPacket(data);
+                    a.sendArtDmxPacket(data, (byte)0, (byte)0, (byte)0);
                     Thread.sleep(5);
                 }
             } catch (Exception e) {

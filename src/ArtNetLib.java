@@ -6,7 +6,7 @@ import java.net.InetAddress;
  * ArtNet Class
  * @author: Mirco Borella
  */
-public class ArtNet {
+public class ArtNetLib {
     
     private DatagramSocket socket;
     private String socketIp;
@@ -14,9 +14,8 @@ public class ArtNet {
     /**
      * Constructor with ip
      * @param socketIp Ip address of the socket
-     * @throws Exception If there is any problem
      */
-    public ArtNet(String socketIp) throws Exception{
+    public ArtNetLib(String socketIp){
         this.socketIp = socketIp;
         try {
             socket = new DatagramSocket();
@@ -26,10 +25,13 @@ public class ArtNet {
     }
 
     /**
-     * Send a ArtDmx packet on node=0, universe=0, subnet=0, net=0
+     * Send a ArtDmx packet in a universe, subnet and net given.
      * @param dmxChannelData Dmx data array. ArraySize=512, ArrayType=byte, ArrayValue=(0-255)
+     * @param universe Universe in which send the packets. (Values from 0 to 15)
+     * @param subnet Subnet in which send the packets. (Values from 0 to 15)
+     * @param net Net in which send the packets. (Values from 0 to 15)
      */
-    public void sendArtDmxPacket(byte[] dmxChannelData){
+    public void sendArtDmxPacket(byte[] dmxChannelData, byte universe, byte subnet, byte net){
         //Name:         Size:       Bytes:      Bits:
         //Id[8]         Int8        8           64
         char[] idChars = {'A', 'r', 't', '-', 'N', 'e', 't', 0x00};
@@ -62,11 +64,16 @@ public class ArtNet {
 
         //Name:         Size:       Bytes:      Bits:
         //SubUni        Int8        1           8
-        byte subUni = 0;
+        //Most significant 4 bit- > Subnet
+        //Least significant 4 bit -> Universe
+        //Values accepted: 0-15
+        subnet = (byte) (subnet << 4);
+        byte subUni = (byte) (subnet + universe);
 
         //Name:         Size:       Bytes:      Bits:
         //Net           Int8        1           8
-        byte net = 0;
+        //Values accepted: 0-127
+        byte pNet = net;
 
         //Name:         Size:       Bytes:      Bits:
         //LengthHi      Int8        1           8
@@ -92,7 +99,7 @@ public class ArtNet {
         byteToSend[12] = sequence;
         byteToSend[13] = physical;
         byteToSend[14] = subUni;
-        byteToSend[15] = net;
+        byteToSend[15] = pNet;
         byteToSend[16] = lengthHi;
         byteToSend[17] = length;
         for (int i = 18; i < byteToSend.length; i++) {
