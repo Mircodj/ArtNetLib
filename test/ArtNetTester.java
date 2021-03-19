@@ -9,7 +9,7 @@ public class ArtNetTester {
      * @param args Arguments
      * @throws Exception if problems
      */
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args){
         //Loop
         while (true) {
             try {
