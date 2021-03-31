@@ -1,4 +1,4 @@
-## Java ArtNet Dmx Sender
+## Java ArtNet Library
 
 ### Constructor:
 
